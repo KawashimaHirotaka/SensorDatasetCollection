@@ -1,5 +1,6 @@
 import os
 import zipfile
+from typing import List
 
 import tqdm
 import requests
@@ -10,7 +11,7 @@ import numpy as np
 SAVE_DIR = os.getcwd()
 
 
-def fetch_dataset(url, extract=True):
+def fetch_dataset(url: str, extract: bool = True, password: bytes = None) -> None:
     if not os.path.isdir(SAVE_DIR):
         os.makedirs(SAVE_DIR)
 
@@ -30,13 +31,18 @@ def fetch_dataset(url, extract=True):
 
     if extract:
         with zipfile.ZipFile(filename) as zfile:
-            zfile.extractall(SAVE_DIR)
+            zfile.extractall(SAVE_DIR, pwd=password)
         os.remove(filename)
 
 
-def load_files(filenames):
+def load_files(filenames: List[str]) -> np.ndarray:
     """
-    :type filenames: [str]
+
+    Args:
+        filenames:
+
+    Returns:
+
     """
 
     done = []
